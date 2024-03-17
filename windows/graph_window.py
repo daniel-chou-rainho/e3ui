@@ -25,6 +25,9 @@ class GraphWindow(tk.Frame):
         self.select_file_button = ttk.Button(control_frame, text="Select CSV File", command=self.select_file)
         self.select_file_button.pack(side=tk.TOP, fill='x', padx=5, pady=5)
 
+        self.filename_label = tk.Label(control_frame, text="No file selected", foreground="gray")
+        self.filename_label.pack(side=tk.TOP, fill='x', padx=5, pady=5)
+
         self.app_id_dropdown = ttk.Combobox(control_frame, state="readonly", values=[])
         self.app_id_dropdown.pack(side=tk.TOP, fill='x', padx=5, pady=5)
 
@@ -43,6 +46,8 @@ class GraphWindow(tk.Frame):
             app_ids = get_app_ids(self.data)
             self.app_id_dropdown['values'] = app_ids
             self.app_id_dropdown.bind("<<ComboboxSelected>>", self.update_graph)
+            filename = file_path.split('/')[-1]
+            self.filename_label.config(text=filename, foreground="black")
 
     def update_graph(self, event):
         selected_app_id = self.app_id_dropdown.get()
