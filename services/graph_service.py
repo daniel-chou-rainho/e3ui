@@ -16,7 +16,7 @@ def plot_graph(data=None, parent_frame=None, canvas=None):
 
     ax.set_title('Total Energy Consumption Over Time for Selected AppId')
     ax.set_xlabel('TimeStamp')
-    ax.set_ylabel('Total Energy Consumption')
+    ax.set_ylabel('Total Energy Consumption (mJ)')
     plt.xticks(rotation=45)
     plt.tight_layout()
 
