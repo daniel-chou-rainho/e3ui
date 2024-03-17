@@ -1,6 +1,8 @@
 
 # E3UI
 
+<img src="media/image.png" alt="alt text" width="600">
+
 ### Usage
 
 ```python
