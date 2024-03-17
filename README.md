@@ -1,1 +1,4 @@
-# e3ui
+
+```python
+python main.py
+```
