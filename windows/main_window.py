@@ -7,7 +7,7 @@ from services.plot.plot_overview import plot_overview
 from services.plot.plot_breakdown import plot_breakdown
 from services.plot.plot_timeline import plot_timeline
 
-class GraphWindow(tk.Frame):
+class MainWindow(tk.Frame):
     def __init__(self, parent, *args, **kwargs):
         super().__init__(parent, *args, **kwargs)
         self.data = None
@@ -67,7 +67,7 @@ class GraphWindow(tk.Frame):
             ]
         )
         self.graph_type_dropdown.pack(side=tk.TOP, fill='x', padx=5, pady=5)
-        self.graph_type_dropdown.bind("<<ComboboxSelected>>", self.update_graph_type)
+        self.graph_type_dropdown.bind("<<ComboboxSelected>>", self.update_graph)
 
         # AppId dropdown
         self.app_id_dropdown = ttk.Combobox(control_frame, state="readonly", values=[])
@@ -89,11 +89,11 @@ class GraphWindow(tk.Frame):
             self.data = load_data(file_path)
             app_ids = get_app_ids(self.data)
             self.app_id_dropdown['values'] = app_ids
-            self.app_id_dropdown.bind("<<ComboboxSelected>>", self.update_graph_type)
+            self.app_id_dropdown.bind("<<ComboboxSelected>>", self.update_graph)
             filename = file_path.split('/')[-1]
             self.filename_label.config(text=filename, foreground="black")
     
-    def update_graph_type(self, event):
+    def update_graph(self, event):
         selected_graph_type = self.graph_type_dropdown.get()
 
         # Clear existing graph before plotting a new one
