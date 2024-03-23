@@ -5,6 +5,3 @@ def load_data(file_path):
     data.columns = data.columns.str.strip()
     data['TimeStamp'] = pd.to_datetime(data['TimeStamp'].str.strip(), format='%Y-%m-%d:%H:%M:%S.%f')
     return data
-
-def get_app_ids(data):
-    return data['AppId'].drop_duplicates().sort_values().tolist()

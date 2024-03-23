@@ -1,10 +1,11 @@
 import tkinter as tk
 from tkinter import ttk
-from services.file_dialog_service import select_csv_file
-from services.data_service import load_data, get_app_ids
-from services.plot_overview_service import plot_overview
-from services.plot_breakdown_service import plot_breakdown
-from services.plot_timeline_service import plot_timeline
+from services.data.select_csv_file import select_csv_file
+from services.data.get_app_ids import get_app_ids
+from services.data.load_data import load_data
+from services.plot.plot_overview import plot_overview
+from services.plot.plot_breakdown import plot_breakdown
+from services.plot.plot_timeline import plot_timeline
 
 class GraphWindow(tk.Frame):
     def __init__(self, parent, *args, **kwargs):
