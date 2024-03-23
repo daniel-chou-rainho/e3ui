@@ -29,11 +29,10 @@ def plot_overview(data=None, parent_frame=None, canvas=None):
         abbreviated_labels = [abbreviate_label(app_id) for app_id in total_consumption_by_app_sorted['AppId']]
         
         # Plot
-        ax.bar(abbreviated_labels, total_consumption_by_app_sorted['TotalEnergyConsumption'], color='b')
+        ax.barh(abbreviated_labels, total_consumption_by_app_sorted['TotalEnergyConsumption'], color='b')
         ax.set_title('Top 20 Apps by Total Energy Consumption')
         ax.set_xlabel('AppId')
         ax.set_ylabel('Total Energy Consumption (mJ)')
-        plt.xticks(rotation=90)  # Adjusted rotation for readability
     else:
         # Setup for an empty graph
         ax.bar([], [])  # No data to plot

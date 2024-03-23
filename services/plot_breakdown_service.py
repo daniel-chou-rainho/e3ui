@@ -30,11 +30,10 @@ def plot_breakdown(data=None, parent_frame=None, selected_app_id=None, canvas=No
         consumption_df_sorted = consumption_df.sort_values(by='TotalConsumption', ascending=False)
 
         # Plot
-        ax.bar(consumption_df_sorted['EnergyType'], consumption_df_sorted['TotalConsumption'], color='b')
+        ax.barh(consumption_df_sorted['EnergyType'], consumption_df_sorted['TotalConsumption'], color='b')
         ax.set_title(f'Energy Consumption Breakdown for {selected_app_id}')
         ax.set_xlabel('Energy Type')
         ax.set_ylabel('Total Energy Consumption (mJ)')
-        plt.xticks(rotation=45, ha="right")
     else:
         # Setup for an empty graph
         ax.bar([], [])  # No data to plot
