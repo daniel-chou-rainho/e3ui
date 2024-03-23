@@ -18,13 +18,25 @@ class GraphWindow(tk.Frame):
         control_frame = tk.Frame(self)
         control_frame.pack(side=tk.LEFT, fill='y', padx=10, pady=10)
 
-        # Data collection button
-        self.start_stop_button = ttk.Button(
-            control_frame,
-            text="Start/Stop Data Collection",
-            command=self.toggle_data_collection
+        # Frame to hold Start and Stop buttons next to each other
+        button_frame = tk.Frame(control_frame)
+        button_frame.pack(side=tk.TOP, fill='x', padx=5, pady=5)
+
+        # Start Data Collection button
+        self.start_button = ttk.Button(
+            button_frame,
+            text="Start Data Collection",
+            command=self.start_data_collection
         )
-        self.start_stop_button.pack(side=tk.TOP, fill='x', padx=5, pady=5)
+        self.start_button.pack(side=tk.LEFT, fill='x', expand=True, padx=2.5, pady=5)
+
+        # Stop Data Collection button
+        self.stop_button = ttk.Button(
+            button_frame,
+            text="Stop Data Collection",
+            command=self.stop_data_collection
+        )
+        self.stop_button.pack(side=tk.LEFT, fill='x', expand=True, padx=2.5, pady=5)
 
         # File selection button
         self.select_file_button = ttk.Button(
@@ -64,8 +76,10 @@ class GraphWindow(tk.Frame):
         self.graph_frame = tk.Frame(self)
         self.graph_frame.pack(side=tk.LEFT, fill="both", expand=True, padx=5, pady=5)
 
-    def toggle_data_collection(self):
-        # Placeholder for actual start/stop functionality
+    def start_data_collection(self):
+        pass
+
+    def stop_data_collection(self):
         pass
 
     def select_file(self):
