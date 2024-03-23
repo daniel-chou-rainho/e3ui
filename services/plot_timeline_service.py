@@ -37,6 +37,13 @@ def plot_timeline(data=None, parent_frame=None, canvas=None, cumulative=False, s
     ax.set_xlabel('TimeStamp')
     ax.set_ylabel('Energy Consumption (mJ)')
     plt.xticks(rotation=45)
+
+    # Add grid lines for both x and y axes
+    ax.grid(True, which='both', linestyle='--', linewidth=0.5, color='grey')
+    # Setting minor grid lines
+    ax.minorticks_on()
+    ax.grid(which='minor', linestyle=':', linewidth='0.5', color='gray')
+    
     plt.tight_layout()
 
     canvas = FigureCanvasTkAgg(fig, master=parent_frame)

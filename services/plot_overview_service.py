@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import pandas as pd
+import matplotlib.ticker as ticker
 
 def abbreviate_label(label, max_length=30):
     if len(label) <= max_length:
@@ -33,6 +34,15 @@ def plot_overview(data=None, parent_frame=None, canvas=None):
         ax.set_title('Top 20 Apps by Total Energy Consumption')
         ax.set_xlabel('AppId')
         ax.set_ylabel('Total Energy Consumption (mJ)')
+
+        # Add grid lines behind bars
+        ax.grid(True, which='both', axis='x', linestyle='--', linewidth=0.5)
+        # Move grid lines to background
+        ax.set_axisbelow(True)
+
+        # Increase the density of grid lines
+        ax.xaxis.set_major_locator(ticker.AutoLocator())  # Automatic placement of major ticks
+        ax.xaxis.set_minor_locator(ticker.AutoMinorLocator(2))  # Places a specific number of minor ticks between major ticks
     else:
         # Setup for an empty graph
         ax.bar([], [])  # No data to plot
