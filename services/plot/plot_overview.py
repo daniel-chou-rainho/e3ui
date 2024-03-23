@@ -13,11 +13,10 @@ def abbreviate_label(label, max_length=30):
         abbreviated = '...' + label[-end_chars_count:]
         return abbreviated
 
-def plot_overview(data=None, parent_frame=None, canvas=None):
-    if canvas:
-        canvas.get_tk_widget().destroy()  # Clear the existing canvas if any
-
-    fig, ax = plt.subplots()
+def plot_overview(data, figure):
+    # Clear the current axes and create a new one
+    figure.clf()
+    ax = figure.add_subplot(111)  # Adds a subplot with a single axis
 
     if data is not None and not data.empty:
         # Aggregate total energy consumption by AppId
@@ -47,11 +46,4 @@ def plot_overview(data=None, parent_frame=None, canvas=None):
         # Setup for an empty graph
         ax.bar([], [])  # No data to plot
 
-    plt.tight_layout()
-
-    canvas = FigureCanvasTkAgg(fig, master=parent_frame)
-    canvas_widget = canvas.get_tk_widget()
-    canvas_widget.pack(fill="both", expand=True)
-    canvas.draw()
-
-    return canvas
+    figure.tight_layout()

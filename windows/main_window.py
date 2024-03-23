@@ -6,6 +6,8 @@ from services.data.load_data import load_data
 from services.plot.plot_overview import plot_overview
 from services.plot.plot_breakdown import plot_breakdown
 from services.plot.plot_timeline import plot_timeline
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 class MainWindow(tk.Frame):
     def __init__(self, parent, *args, **kwargs):
@@ -13,7 +15,7 @@ class MainWindow(tk.Frame):
         self.data = None
         self.canvas = None
         self.create_widgets()
-        self.canvas = plot_timeline(parent_frame=self.graph_frame)
+        #self.canvas = plot_timeline(parent_frame=self.graph_frame)
 
     def create_widgets(self):
         control_frame = tk.Frame(self)
@@ -74,7 +76,7 @@ class MainWindow(tk.Frame):
         self.app_id_dropdown.pack(side=tk.TOP, fill='x', padx=5, pady=5)
 
         # The graph_frame will now take the rest of the space to the right
-        self.graph_frame = tk.Frame(self)
+        self.graph_frame = tk.Frame(self, background="white")
         self.graph_frame.pack(side=tk.LEFT, fill="both", expand=True, padx=5, pady=5)
 
     def start_data_collection(self):
@@ -96,23 +98,31 @@ class MainWindow(tk.Frame):
     def update_graph(self, event):
         selected_graph_type = self.graph_type_dropdown.get()
 
-        # Clear existing graph before plotting a new one
-        if self.canvas:
-            self.canvas.get_tk_widget().destroy()
-            self.canvas = None
-
         # Automatically select the first App ID if none is selected
         if not self.app_id_dropdown.get() and self.app_id_dropdown['values']:
             self.app_id_dropdown.set(self.app_id_dropdown['values'][0])
 
         selected_app_id = self.app_id_dropdown.get()
 
-        # Determine which function to call based on the selected graph type
+        # Check if canvas exists; if not, initialize it
+        if not self.canvas:
+            fig, ax = plt.subplots()
+            self.canvas = FigureCanvasTkAgg(fig, master=self.graph_frame)
+            self.canvas_widget = self.canvas.get_tk_widget()
+            self.canvas_widget.pack(fill="both", expand=True)
+        else:
+            # Clear the figure (or axes) for the new plot
+            self.canvas.figure.clf()
+
+        # Depending on the type of graph, call the respective function
         if selected_graph_type == "Total Power Consumption by App":
-            self.canvas = plot_overview(self.data, self.graph_frame)
+            plot_overview(self.data, self.canvas.figure)
         elif selected_graph_type == "Power Consumption Breakdown for a Selected App":
-            self.canvas = plot_breakdown(self.data, self.graph_frame, selected_app_id)
+            plot_breakdown(self.data, self.canvas.figure, selected_app_id)
         elif selected_graph_type == "Cumulative Power Consumption Over Time":
-            self.canvas = plot_timeline(self.data, self.graph_frame, cumulative=True, selected_app_id=selected_app_id)
+            plot_timeline(self.data, self.canvas.figure, cumulative=True, selected_app_id=selected_app_id)
         elif selected_graph_type == "Power Consumption Over Time":
-            self.canvas = plot_timeline(self.data, self.graph_frame, cumulative=False, selected_app_id=selected_app_id)
+            plot_timeline(self.data, self.canvas.figure, cumulative=False, selected_app_id=selected_app_id)
+
+        self.canvas.draw()
+
