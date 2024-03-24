@@ -8,7 +8,6 @@ def abbreviate_label(label, max_length=30):
         return label
     else:
         # Ensure to keep the portion of the end of the label
-        # Calculate how many characters to keep from the end
         end_chars_count = max_length - 3  # Subtracting the length of '...'
         abbreviated = '...' + label[-end_chars_count:]
         return abbreviated
@@ -28,20 +27,24 @@ def plot_overview(data, figure):
         # Abbreviate labels
         abbreviated_labels = [abbreviate_label(app_id) for app_id in total_consumption_by_app_sorted['AppId']]
         
-        # Plot
-        ax.barh(abbreviated_labels, total_consumption_by_app_sorted['TotalEnergyConsumption'], color='b')
-        ax.set_title('Top 20 Apps by Total Energy Consumption')
-        ax.set_xlabel('AppId')
-        ax.set_ylabel('Total Energy Consumption (mJ)')
+        # Plot with eco-friendly aesthetics
+        ax.barh(abbreviated_labels, total_consumption_by_app_sorted['TotalEnergyConsumption'], color='#4CAF50')  # A green color
+        ax.set_title('Top 20 Apps by Total Energy Consumption', fontname='Arial')  # Darker green color for the title
+        ax.set_ylabel('AppId', fontname='Arial')
+        ax.set_xlabel('Total Energy Consumption (mJ)', fontname='Arial')
 
         # Add grid lines behind bars
-        ax.grid(True, which='both', axis='x', linestyle='--', linewidth=0.5)
+        ax.grid(True, which='both', axis='x', linestyle='--', linewidth=0.5, color='#A5D6A7')  # Light green for grid lines
         # Move grid lines to background
         ax.set_axisbelow(True)
 
         # Increase the density of grid lines
         ax.xaxis.set_major_locator(ticker.AutoLocator())  # Automatic placement of major ticks
         ax.xaxis.set_minor_locator(ticker.AutoMinorLocator(2))  # Places a specific number of minor ticks between major ticks
+        
+        # Set background color to a lighter shade of green for an eco-friendly vibe
+        ax.set_facecolor('#E8F5E9')  # Light green background
+        figure.patch.set_facecolor('#E8F5E9')  # Matching figure background
     else:
         # Setup for an empty graph
         ax.bar([], [])  # No data to plot

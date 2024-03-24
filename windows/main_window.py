@@ -16,17 +16,24 @@ class MainWindow(tk.Frame):
         super().__init__(parent, *args, **kwargs)
         self.data = None
         self.canvas = None
+        self.configure(background='#F0F7EE')  # A light green/white background
         self.create_widgets()
 
     def create_widgets(self):
-        control_frame = tk.Frame(self)
+        control_frame = tk.Frame(self, bg='#DAE5D0')  # Light green background
         control_frame.pack(side=tk.LEFT, fill='y', padx=10, pady=10)
 
-        # Frame to hold Start and Stop buttons next to each other
-        button_frame = tk.Frame(control_frame)
+        button_frame = tk.Frame(control_frame, bg='#DAE5D0')
         button_frame.pack(side=tk.TOP, fill='x', padx=5, pady=5)
 
-        # Start Data Collection button
+        # Use a more natural, subdued green for buttons
+        style = ttk.Style()
+        style.configure('TButton', background='#88A09E', foreground='dark gray')
+        style.map('TButton', background=[('active', '#8ABF9B')])
+        # Configure the style for the dropdown
+        style.configure('TCombobox', fieldbackground='white', foreground='dark gray', selectbackground='white', selectforeground='dark gray')
+
+
         self.start_button = ttk.Button(
             button_frame,
             text="Start Data Collection",
@@ -34,7 +41,6 @@ class MainWindow(tk.Frame):
         )
         self.start_button.pack(side=tk.LEFT, fill='x', expand=True, padx=2.5, pady=5)
 
-        # Stop Data Collection button
         self.stop_button = ttk.Button(
             button_frame,
             text="Stop Data Collection",
@@ -42,7 +48,6 @@ class MainWindow(tk.Frame):
         )
         self.stop_button.pack(side=tk.LEFT, fill='x', expand=True, padx=2.5, pady=5)
 
-        # File selection button
         self.select_file_button = ttk.Button(
             control_frame,
             text="Select CSV File",
@@ -50,15 +55,14 @@ class MainWindow(tk.Frame):
         )
         self.select_file_button.pack(side=tk.TOP, fill='x', padx=5, pady=5)
 
-        # File name label
         self.filename_label = tk.Label(
             control_frame,
             text="No file selected",
-            foreground="gray"
+            foreground="gray",
+            bg='#DAE5D0'
         )
         self.filename_label.pack(side=tk.TOP, fill='x', padx=5, pady=5)
 
-        # Graph type dropdown
         self.graph_type_dropdown = ttk.Combobox(
             control_frame,
             state="readonly",
@@ -72,13 +76,12 @@ class MainWindow(tk.Frame):
         self.graph_type_dropdown.pack(side=tk.TOP, fill='x', padx=5, pady=5)
         self.graph_type_dropdown.bind("<<ComboboxSelected>>", self.update_graph)
 
-        # AppId dropdown
         self.app_id_dropdown = ttk.Combobox(control_frame, state="readonly", values=[])
         self.app_id_dropdown.pack(side=tk.TOP, fill='x', padx=5, pady=5)
 
-        # The graph_frame will now take the rest of the space to the right
         self.graph_frame = tk.Frame(self, background="white")
         self.graph_frame.pack(side=tk.LEFT, fill="both", expand=True, padx=5, pady=5)
+
 
     def start_data_collection(self):
         # Clear the database
