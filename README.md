@@ -39,7 +39,7 @@ To set up E3UI on your system, follow these steps:
 
 ## Usage
 
-To start the application, simply run the following command in your terminal:
+To start the application, simply run the following command in your terminal with administrative privileges:
 
 ```python
 python main.py
