@@ -6,6 +6,7 @@ from services.data.load_data import load_data
 from services.plot.plot_overview import plot_overview
 from services.plot.plot_breakdown import plot_breakdown
 from services.plot.plot_timeline import plot_timeline
+from services.plot.plot_carbon import plot_carbon
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from services.e3.clear_database import clear_database
@@ -70,7 +71,8 @@ class MainWindow(tk.Frame):
                 "Total Power Consumption by App",
                 "Power Consumption Breakdown for a Selected App",
                 "Cumulative Power Consumption Over Time",
-                "Power Consumption Over Time"
+                "Power Consumption Over Time",
+                "Cummulative CO2 emmision"
             ]
         )
         self.graph_type_dropdown.pack(side=tk.TOP, fill='x', padx=5, pady=5)
@@ -142,5 +144,7 @@ class MainWindow(tk.Frame):
             plot_timeline(self.data, self.canvas.figure, cumulative=True, selected_app_id=selected_app_id)
         elif selected_graph_type == "Power Consumption Over Time":
             plot_timeline(self.data, self.canvas.figure, cumulative=False, selected_app_id=selected_app_id)
+        elif selected_graph_type == "Cummulative CO2 emmision":
+            plot_carbon(self.data, self.canvas.figure, selected_app_id=selected_app_id)
 
         self.canvas.draw()
