@@ -6,7 +6,7 @@ def main():
     root = ThemedTk(theme="arc")
     root.title('E3UI')
     root.geometry('1000x600')
-    root.minsize(1000, 600)
+    #root.minsize(1000, 600)
     app = MainWindow(root)
     app.pack(fill="both", expand=True)
     root.mainloop()

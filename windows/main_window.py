@@ -8,6 +8,8 @@ from services.plot.plot_breakdown import plot_breakdown
 from services.plot.plot_timeline import plot_timeline
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from services.e3.clear_database import clear_database
+from services.e3.get_csv import get_csv
 
 class MainWindow(tk.Frame):
     def __init__(self, parent, *args, **kwargs):
@@ -15,7 +17,6 @@ class MainWindow(tk.Frame):
         self.data = None
         self.canvas = None
         self.create_widgets()
-        #self.canvas = plot_timeline(parent_frame=self.graph_frame)
 
     def create_widgets(self):
         control_frame = tk.Frame(self)
@@ -80,21 +81,36 @@ class MainWindow(tk.Frame):
         self.graph_frame.pack(side=tk.LEFT, fill="both", expand=True, padx=5, pady=5)
 
     def start_data_collection(self):
-        pass
+        # Clear the database
+        clear_database()
+        print("Database cleared. Data collection can start.")
 
     def stop_data_collection(self):
-        pass
+        # Call get_csv to generate the CSV file and load the data
+        file_path = get_csv()
+        if file_path:
+            # Load the data from the CSV file
+            self.update_data_and_ui(file_path)
+        else:
+            print("Failed to generate or load CSV file.")
 
     def select_file(self):
         file_path = select_csv_file(self)
         if file_path:
-            self.data = load_data(file_path)
-            app_ids = get_app_ids(self.data)
-            self.app_id_dropdown['values'] = app_ids
-            self.app_id_dropdown.bind("<<ComboboxSelected>>", self.update_graph)
-            filename = file_path.split('/')[-1]
-            self.filename_label.config(text=filename, foreground="black")
-    
+            self.update_data_and_ui(file_path)
+
+    def update_data_and_ui(self, file_path):
+        self.data = load_data(file_path)
+        app_ids = get_app_ids(self.data)
+        self.app_id_dropdown['values'] = app_ids
+        # Ensure that UI updates happen in the main thread
+        self.after(0, self.app_id_dropdown.bind, "<<ComboboxSelected>>", self.update_graph)
+        filename = file_path.split('/')[-1]
+        # Ensure that UI updates happen in the main thread
+        self.after(0, self.filename_label.config, {'text': filename, 'foreground': "black"})
+        # Automatically trigger graph update
+        self.after(0, self.update_graph, None)
+
     def update_graph(self, event):
         selected_graph_type = self.graph_type_dropdown.get()
 
@@ -125,4 +141,3 @@ class MainWindow(tk.Frame):
             plot_timeline(self.data, self.canvas.figure, cumulative=False, selected_app_id=selected_app_id)
 
         self.canvas.draw()
-
