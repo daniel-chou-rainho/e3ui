@@ -29,7 +29,7 @@ def plot_breakdown(data=None, figure=None, selected_app_id=None):
         consumption_df_sorted = consumption_df.sort_values(by='TotalConsumption', ascending=False)
 
         # Plot with eco-friendly aesthetics
-        ax.barh(consumption_df_sorted['EnergyType'], consumption_df_sorted['TotalConsumption']/3600, color='#4CAF50')  # A green color for bars
+        ax.barh(consumption_df_sorted['EnergyType'], consumption_df_sorted['TotalConsumption']/3600/1000, color='#4CAF50')  # A green color for bars
         ax.set_title(f'Energy Consumption Breakdown for {selected_app_id}', fontname='Arial')  # Darker green color for the title
         ax.set_ylabel('Energy Type', fontname='Arial')
         ax.set_xlabel('Total Energy Consumption (Wh)', fontname='Arial')

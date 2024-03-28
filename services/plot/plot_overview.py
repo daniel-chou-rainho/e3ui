@@ -28,7 +28,7 @@ def plot_overview(data, figure):
         abbreviated_labels = [abbreviate_label(app_id) for app_id in total_consumption_by_app_sorted['AppId']]
         
         # Plot with eco-friendly aesthetics
-        ax.barh(abbreviated_labels, total_consumption_by_app_sorted['TotalEnergyConsumption']/3600, color='#4CAF50')  # A green color
+        ax.barh(abbreviated_labels, total_consumption_by_app_sorted['TotalEnergyConsumption']/3600/1000, color='#4CAF50')  # A green color
         ax.set_title('Top 20 Apps by Total Energy Consumption', fontname='Arial')  # Darker green color for the title
         ax.set_ylabel('AppId', fontname='Arial')
         ax.set_xlabel('Total Energy Consumption (Wh)', fontname='Arial')
