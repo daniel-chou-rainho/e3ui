@@ -28,13 +28,13 @@ def plot_overview(data, figure):
         abbreviated_labels = [abbreviate_label(app_id) for app_id in total_consumption_by_app_sorted['AppId']]
         
         # Plot with eco-friendly aesthetics
-        ax.barh(abbreviated_labels, total_consumption_by_app_sorted['TotalEnergyConsumption']/3600/1000, color='#4CAF50')  # A green color
-        ax.set_title('Top 20 Apps by Total Energy Consumption', fontname='Arial')  # Darker green color for the title
-        ax.set_ylabel('AppId', fontname='Arial')
-        ax.set_xlabel('Total Energy Consumption (Wh)', fontname='Arial')
+        ax.barh(abbreviated_labels, total_consumption_by_app_sorted['TotalEnergyConsumption']/3600/1000)
+        ax.set_title('Top 20 Apps by Total Energy Consumption')
+        ax.set_ylabel('AppId')
+        ax.set_xlabel('Total Energy Consumption (Wh)')
 
         # Add grid lines behind bars
-        ax.grid(True, which='both', axis='x', linestyle='--', linewidth=0.5, color='#A5D6A7')  # Light green for grid lines
+        ax.grid(True, which='both', axis='x', linestyle='--', linewidth=0.5)  # Light green for grid lines
         # Move grid lines to background
         ax.set_axisbelow(True)
 
@@ -42,9 +42,6 @@ def plot_overview(data, figure):
         ax.xaxis.set_major_locator(ticker.AutoLocator())  # Automatic placement of major ticks
         ax.xaxis.set_minor_locator(ticker.AutoMinorLocator(2))  # Places a specific number of minor ticks between major ticks
         
-        # Set background color to a lighter shade of green for an eco-friendly vibe
-        ax.set_facecolor('#E8F5E9')  # Light green background
-        figure.patch.set_facecolor('#E8F5E9')  # Matching figure background
     else:
         # Setup for an empty graph
         ax.bar([], [])  # No data to plot

@@ -67,7 +67,7 @@ def plot_carbon(data=None, figure=None, selected_app_id=None):
         plot_title = 'Cumulative CO2 emision Over Time'
 
 
-        ax.plot(data['TimeStamp'], y_data, marker='o', linestyle='-', color='b')
+        ax.plot(data['TimeStamp'], y_data, marker='o', linestyle='-')
     else:
         # Setup for an empty graph
         ax.plot([], [])  # No data to plot

@@ -17,23 +17,14 @@ class MainWindow(tk.Frame):
         super().__init__(parent, *args, **kwargs)
         self.data = None
         self.canvas = None
-        self.configure(background='#F0F7EE')  # A light green/white background
         self.create_widgets()
 
     def create_widgets(self):
-        control_frame = tk.Frame(self, bg='#DAE5D0')  # Light green background
+        control_frame = tk.Frame(self)  # Light green background
         control_frame.pack(side=tk.LEFT, fill='y', padx=10, pady=10)
 
-        button_frame = tk.Frame(control_frame, bg='#DAE5D0')
+        button_frame = tk.Frame(control_frame)
         button_frame.pack(side=tk.TOP, fill='x', padx=5, pady=5)
-
-        # Use a more natural, subdued green for buttons
-        style = ttk.Style()
-        style.configure('TButton', background='#88A09E', foreground='dark gray')
-        style.map('TButton', background=[('active', '#8ABF9B')])
-        # Configure the style for the dropdown
-        style.configure('TCombobox', fieldbackground='white', foreground='dark gray', selectbackground='white', selectforeground='dark gray')
-
 
         self.start_button = ttk.Button(
             button_frame,
@@ -59,8 +50,7 @@ class MainWindow(tk.Frame):
         self.filename_label = tk.Label(
             control_frame,
             text="No file selected",
-            foreground="gray",
-            bg='#DAE5D0'
+            foreground="gray"
         )
         self.filename_label.pack(side=tk.TOP, fill='x', padx=5, pady=5)
 
