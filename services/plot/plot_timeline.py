@@ -16,20 +16,28 @@ def plot_timeline(data=None, figure=None, cumulative=False, selected_app_id=None
         if cumulative:
             data = data.sort_values('TimeStamp')
             data['CumulativeEnergy'] = data['TotalEnergyConsumption'].cumsum()
-            y_data = data['CumulativeEnergy']
-            plot_title = 'Cumulative Energy Consumption Over Time'
+            y_data = data['CumulativeEnergy']/3600/1000
+            x_data = data['TimeStamp']
+            plot_title = 'Cumulative Energy Consumption  per Process over Time'
+            y_label = 'Energy Consumption (Wh)'
+            ax.plot(x_data, y_data, marker='o', linestyle='-', color='#4CAF50')
         else:
-            y_data = data['TotalEnergyConsumption']
-            plot_title = 'Total Energy Consumption Over Time'
+            data_group = data[['TimeStamp','TotalEnergyConsumption']].groupby('TimeStamp').sum().reset_index()
+            y_data = data_group['TotalEnergyConsumption'].iloc[1:]/1000/ data_group['TimeStamp'].diff().dt.total_seconds().iloc[1:]
+            x_data = data_group['TimeStamp'].iloc[1:] 
+            plot_title = 'Power Consumption per Process over Time'
+            y_label = "Power Consumption (W)"
+            ax.plot(x_data, y_data, color='#4CAF50')
 
-        ax.plot(data['TimeStamp'], y_data/3600, marker='o', linestyle='-', color='#4CAF50')  # Use a green color for the line
+          # Use a green color for the line
     else:
         # Setup for an empty graph
         ax.plot([], [])  # No data to plot
+        y_label = None
 
     ax.set_title(f'{plot_title} for Selected AppId' if selected_app_id else plot_title, fontname='Arial')
     ax.set_xlabel('TimeStamp', fontname='Arial')
-    ax.set_ylabel('Energy Consumption (Wh)', fontname='Arial')
+    ax.set_ylabel(y_label, fontname='Arial')
     ax.tick_params(axis='x', rotation=45)
     ax.tick_params(axis='y')
 
