@@ -18,14 +18,14 @@ def plot_timeline(data=None, figure=None, cumulative=False, selected_app_id=None
             data['CumulativeEnergy'] = data['TotalEnergyConsumption'].cumsum()
             y_data = data['CumulativeEnergy']/3600/1000
             x_data = data['TimeStamp']
-            plot_title = 'Cumulative Energy Consumption  per Process over Time'
+            plot_title = 'Cumulative Energy Consumption over Time'
             y_label = 'Energy Consumption (Wh)'
             ax.plot(x_data, y_data, marker='o', linestyle='-', color='#4CAF50')
         else:
             data_group = data[['TimeStamp','TotalEnergyConsumption']].groupby('TimeStamp').sum().reset_index()
             y_data = data_group['TotalEnergyConsumption'].iloc[1:]/1000/ data_group['TimeStamp'].diff().dt.total_seconds().iloc[1:]
             x_data = data_group['TimeStamp'].iloc[1:] 
-            plot_title = 'Power Consumption per Process over Time'
+            plot_title = 'Power Consumption over Time'
             y_label = "Power Consumption (W)"
             ax.plot(x_data, y_data, color='#4CAF50')
 
