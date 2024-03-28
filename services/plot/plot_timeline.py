@@ -22,14 +22,14 @@ def plot_timeline(data=None, figure=None, cumulative=False, selected_app_id=None
             y_data = data['TotalEnergyConsumption']
             plot_title = 'Total Energy Consumption Over Time'
 
-        ax.plot(data['TimeStamp'], y_data, marker='o', linestyle='-', color='#4CAF50')  # Use a green color for the line
+        ax.plot(data['TimeStamp'], y_data/3600, marker='o', linestyle='-', color='#4CAF50')  # Use a green color for the line
     else:
         # Setup for an empty graph
         ax.plot([], [])  # No data to plot
 
     ax.set_title(f'{plot_title} for Selected AppId' if selected_app_id else plot_title, fontname='Arial')
     ax.set_xlabel('TimeStamp', fontname='Arial')
-    ax.set_ylabel('Energy Consumption (mJ)', fontname='Arial')
+    ax.set_ylabel('Energy Consumption (Wh)', fontname='Arial')
     ax.tick_params(axis='x', rotation=45)
     ax.tick_params(axis='y')
 
