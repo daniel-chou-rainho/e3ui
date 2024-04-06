@@ -7,8 +7,8 @@ E3UI is a powerful tool designed for monitoring and analyzing energy consumption
   <img src="media/breakdown.png" width="400" /> 
 </p>
 <p float="left">
-  <img src="media/timeline.png" width="400" />
-  <img src="media/cumulative.png" width="400" />
+  <img src="media/power.png" width="400" />
+  <img src="media/carbon.png" width="400" />
 </p>
 
 ## Features
@@ -46,11 +46,6 @@ python main.py
 ```
 
 Use the graphical interface to start and stop the monitoring process as needed. The application will automatically handle the data collection and analysis, presenting the results in an easy-to-understand format.
-
-## Future Work
-
-* Dropdown menu for app id is too small right now.
-* Still no carbon calculation.
 
 ## License
 
