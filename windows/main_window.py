@@ -20,7 +20,7 @@ class MainWindow(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        control_frame = tk.Frame(self)  # Light green background
+        control_frame = tk.Frame(self)
         control_frame.pack(side=tk.LEFT, fill='y', padx=10, pady=10)
 
         button_frame = tk.Frame(control_frame)
@@ -62,7 +62,7 @@ class MainWindow(tk.Frame):
                 "Power Consumption Breakdown for a Selected App",
                 "Cumulative Power Consumption Over Time",
                 "Power Consumption Over Time",
-                "Cummulative CO2 emmision"
+                "Cummulative CO2 Emmision"
             ]
         )
         self.graph_type_dropdown.pack(side=tk.TOP, fill='x', padx=5, pady=5)
@@ -72,7 +72,7 @@ class MainWindow(tk.Frame):
         self.app_id_dropdown.pack(side=tk.TOP, fill='x', padx=5, pady=5)
 
         self.graph_frame = tk.Frame(self, background="white")
-        self.graph_frame.pack(side=tk.LEFT, fill="both", expand=True, padx=5, pady=5)
+        self.graph_frame.pack(side=tk.LEFT, fill="both", expand=True)
 
 
     def start_data_collection(self):
