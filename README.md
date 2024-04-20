@@ -1,6 +1,6 @@
 # E3UI
 
-E3UI is a powerful tool designed for monitoring and analyzing energy consumption of applications on Windows devices equipped with batteries. Using the Microsoft Energy Estimation Engine (E3), E3UI provides insights into the power usage of individual applications, setting it apart from other profilers.
+E3UI is a tool designed for monitoring and analyzing energy consumption of applications on Windows devices equipped with batteries. Using the Microsoft Energy Estimation Engine (E3), E3UI provides insights into the power usage of individual applications, setting it apart from other profilers.
 
 <p float="left">
   <img src="media/total.png" width="400" />
